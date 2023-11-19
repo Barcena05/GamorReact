@@ -101,14 +101,10 @@ function myFunction_set_colors() {
 
 
 localStorage.setItem("User", "unregistered");
-let user = document.getElementById("User") as HTMLParagraphElement;
-addEventListener("storage", () => user.innerText = localStorage.getItem("User") as string);
 
 
 
 
-let search_input = document.getElementById("Game_Selection") as HTMLSelectElement;
-let search_results = document.getElementById("SearchResults") as HTMLElement;
 
 function display_games_selector() {
   let element = document.getElementById('Game_Selection') as HTMLElement;
@@ -133,9 +129,15 @@ function set_color() {
 }
 
 function Search(){
-  for (let index = 0; index < search_results.children.length; index++) {
-    search_results.children[index].remove();
+  let search_input = document.getElementById("Game_Selection") as HTMLSelectElement;
+  let search_results = document.getElementById("SearchResults") as HTMLElement;
+  // search_results.childNodes.forEach(item=>item.remove());
+  let top = search_results.children.length;
+  let nodes = [];
+  for (let index = 0; index < top; index++) {
+    nodes.push(search_results.children[index] as HTMLElement);
   }
+  nodes.forEach(value=>value.remove());
   let text_in = search_input.value;
   (document.getElementById('game_name') as HTMLDivElement).innerHTML = text_in;
   let data = loadData();
@@ -146,7 +148,7 @@ function Search(){
       paragraph.style.marginBottom = 'auto';
       paragraph.style.marginTop = 'auto';
       let after = document.createElement('::after');
-      after.style.backgroundImage = 'url("resources/pngwing.com.png")';
+      after.style.backgroundImage = 'url("src/resources/pngwing.com.png")';
       after.style.backgroundSize = 'cover';
       let color = set_color();
       after.setAttribute('class', 'player_icon');
@@ -159,7 +161,7 @@ function Search(){
       after.style.content = '" "';
       paragraph.appendChild(after);
       let button = document.createElement('button');
-      button.style.backgroundImage = 'url("resources/plus-large-svgrepo-com.svg")';
+      button.style.backgroundImage = 'url("src/resources/plus-large-svgrepo-com.svg")';
       button.style.backgroundSize = 'cover';
       button.style.width = '20px';
       button.style.height = '20px';
@@ -189,7 +191,7 @@ function throw_player(player: HTMLParagraphElement, color: string) {
   div.style.overflow = 'hidden';
   div.style.position = 'relative';
   let pic = document.createElement('img');
-  pic.setAttribute('src', 'resources/pngwing.com.png');
+  pic.setAttribute('src', 'src/resources/pngwing.com.png');
   div.style.opacity = '0.8';
   pic.style.opacity = '0.8';
   div.style.display = 'inline-block';

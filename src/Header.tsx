@@ -1,7 +1,12 @@
 export default Header;
 import './index.css'
 import { myFunction_set_colors } from './main';
+import { useEffect } from 'react';
 function Header() {
+  useEffect(()=>{
+    let user = document.getElementById("User") as HTMLParagraphElement;
+    addEventListener("storage", () => user.innerText = localStorage.getItem("User") as string);
+  },[])
     return (
       <div id="Header">
         <h3 style={{ textAlign: "center", fontFamily: "sans-serif" }} id="TopHead">
