@@ -4,6 +4,7 @@ import { SwitchToLog } from './Login';
 import { loadData } from './Login';
 import { useEffect } from 'react';
 import { Initial_display } from './Login';
+import { Outlet, Link } from "react-router-dom";
 
 function Sign() {
     useEffect(()=>{
@@ -92,8 +93,9 @@ function Sign() {
                     window.close();
                 }
             }}>Accept</button>
-            <button type="button" id="signCancel">Cancel</button>
+            <Link to='/'  id="signCancel" >Cancel</Link>
             <button type="button" id="SwitchToLog" onClick={SwitchToLog}>Log</button>
+            <Outlet/>
         </div>
     );
 }

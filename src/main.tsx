@@ -1,22 +1,28 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-// import App from './App.tsx'
+import App from './App.tsx'
 import './index.css'
 import Header from './Header'
 import Summary from './Summary'
 import PicsShow from './PicsShow'
 import GameSearch from './GamesSearch'
 import Category from './Category'
+import { Login } from './Login.tsx'
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 export { display_games_selector };
 export { myFunction_set_colors };
 export {Search};
+export {MainBoard, CategorySect};
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
-  <React.StrictMode>
-    <Header />
-    <MainBoard />
-    <CategorySect />
-  </React.StrictMode>,
+  <BrowserRouter>
+      <Routes>
+        <Route path="/">
+          <Route index element={<App />} />
+          <Route path="Login" element={<Login />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
 )
 
 function MainBoard() {
@@ -31,12 +37,14 @@ function MainBoard() {
 
 function CategorySect() {
   return (
-    <>
+    <div style={{marginTop:'10px'}}>
       <h3 id="CatHeading">
         Trending Categories
       </h3>
       <Category />
-    </>
+    </div>
+      
+    
   );
 }
 

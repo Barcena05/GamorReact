@@ -1,23 +1,24 @@
 import React from 'react'
-import ReactDOM from 'react-dom/client'
 import './index.css'
 import Sign from './Sign';
 import Log from './Log';
-export {SwitchToRegister};
-export {SwitchToLog};
-export {loadData};
-export {Initial_display}
+export { SwitchToRegister };
+export { SwitchToLog };
+export { loadData };
+export { Initial_display }
+export {Login}
 
-let root = document.getElementById('root') as HTMLElement;
-ReactDOM.createRoot(root).render(
-    <React.StrictMode>
-        <Log />
-        <Sign />
-    </React.StrictMode>
-);
+function Login() {
+    return (
+        <React.StrictMode>
+            <Log />
+            <Sign />
+        </React.StrictMode>
+    )
+}
 
-window.onload = function()
-{
+
+window.onload = function () {
     selectTheme();
 }
 

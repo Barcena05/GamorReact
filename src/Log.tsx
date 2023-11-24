@@ -4,6 +4,7 @@ import { SwitchToRegister } from './Login';
 import { loadData } from './Login';
 import { useEffect } from 'react';
 import { Initial_display } from './Login';
+import { Outlet, Link } from "react-router-dom";
 function Log() {
     useEffect(()=>{
         Initial_display();
@@ -59,11 +60,9 @@ function Log() {
             }}>Accept</button>
 
 
-            <button type="button" id="logCancel" onClick={() => {              //Esta talla esta super loca!
-                window.open('', '_parent', '');
-                window.close();
-            }}>Cancel</button>
+            <Link to='/'  id="logCancel" >Cancel</Link>
             <button type="button" id="SwitchToRegister" onClick={SwitchToRegister}>Register</button>
+            <Outlet/>
         </div>
     );
 }

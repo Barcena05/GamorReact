@@ -9,7 +9,7 @@ function PicsShow() {
             marginLeft: "auto",
             marginRight: "auto",
             width: "60%",
-            fontFamily: "Arial, Helvetica, sans-serif",
+            fontFamily: "sans-serif",
             textAlign: "center",
             marginTop: 40
           }}
@@ -22,7 +22,7 @@ function PicsShow() {
             marginLeft: "auto",
             marginRight: "auto",
             width: "60%",
-            fontFamily: "Arial, Helvetica, sans-serif",
+            fontFamily: "sans-serif",
             textAlign: "center",
             marginTop: 40
           }}

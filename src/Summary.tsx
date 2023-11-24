@@ -28,7 +28,7 @@ function Summary() {
             {" "}
             games differently
           </p>
-          <p style={{ color: "darkgray" }}>
+          <p style={{ color: "darkgray" , fontFamily: "sans-serif"}}>
             Gamor now has{" "}
             <span
               style={{

@@ -2,13 +2,14 @@ export default Header;
 import './index.css'
 import { myFunction_set_colors } from './main';
 import { useEffect } from 'react';
+import { Outlet, Link } from "react-router-dom";
 function Header() {
   useEffect(()=>{
     let user = document.getElementById("User") as HTMLParagraphElement;
     addEventListener("storage", () => user.innerText = localStorage.getItem("User") as string);
   },[])
     return (
-      <div id="Header">
+      <div id="Header" style={{fontFamily:'sans-serif'}}>
         <h3 style={{ textAlign: "center", fontFamily: "sans-serif" }} id="TopHead">
           Gamor
         </h3>
@@ -34,15 +35,16 @@ function Header() {
               Change Mode
             </button>
             <ul id="loginBar" className="nav">
+            {/* <Link to="/blogs">Blogs</Link> */}
               <li>
-                <a href="Login.html" target="_blank" id="SignIn" onClick={()=> localStorage.setItem("Log", '1') }>
+                <Link to='/Login' id="SignIn" onClick={()=> localStorage.setItem("Log", '1') }>
                   Sign In
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="Login.html" target="_blank" id="CreateAccount" onClick={ () => { localStorage.setItem("Log", '0') }}>
+                <Link to='/Login' id="CreateAccount" onClick={ () => { localStorage.setItem("Log", '0') }}>
                   Create account
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
@@ -50,6 +52,7 @@ function Header() {
             <p id="User" />
           </div>
         </div>
+        <Outlet/>
       </div>
     );
   };
