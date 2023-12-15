@@ -1,20 +1,24 @@
-import React from 'react'
+
 import ReactDOM from 'react-dom/client'
 import App from './App.tsx'
+import React from 'react'
 import './index.css'
-import Header from './Header'
 import Summary from './Summary'
 import PicsShow from './PicsShow'
 import GameSearch from './GamesSearch'
 import Category from './Category'
 import { Login } from './Login.tsx'
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { exp_games } from './GamesSearch'
+import { getStreams } from './GetStreams.tsx'
+import { useEffect } from 'react'
+import { User } from './GetStreams.tsx'
 export { display_games_selector };
 export { myFunction_set_colors };
 export {Search};
 export {MainBoard, CategorySect};
 
-ReactDOM.createRoot(document.getElementById('root')!).render(
+ReactDOM.createRoot(document.getElementById('root')!).render(  
   <BrowserRouter>
       <Routes>
         <Route path="/">
@@ -48,9 +52,9 @@ function CategorySect() {
   );
 }
 
-let dark_mode = true;
+let dark_mode:boolean = true;
 
-var r = document.querySelector(':root') as HTMLElement;
+var r:HTMLElement = document.querySelector(':root') as HTMLElement;
 function myFunction_set_colors() {
   dark_mode = !dark_mode;
   if (dark_mode) {
@@ -111,54 +115,66 @@ function myFunction_set_colors() {
 localStorage.setItem("User", "unregistered");
 
 
-
-
-
 function display_games_selector() {
-  let element = document.getElementById('Game_Selection') as HTMLElement;
+  let element:HTMLElement = document.getElementById('Game_Selection') as HTMLElement;
+  let text:HTMLElement = document.getElementById("game_name") as HTMLElement;
   if (element.style.display == 'none') {
     element.style.display = 'block';
+    text.style.display = 'none'
   }
-  else element.style.display = 'none';
+  else {
+    element.style.display = 'none';
+    text.style.display = 'inline-block';}
 }
 
-function loadData() {
-  let users = localStorage.getItem("users");
-  let user_data;
-  if (users == null) user_data = [];
-  else user_data = JSON.parse(users);
-  return user_data;
+async function loadData(name:string) {
+  let id:string = "";
+  for (let index = 0; index < exp_games.length; index++) {
+    const element: {
+      name: string;
+      id: string;
+  } = exp_games[index];
+    if(element.name == name)
+    {
+      id = element.id;
+    }
+  }
+  let Users =  await getStreams(Number(id));
+  console.log(Users.data);
+  return Users;
 }
 
-let colors = ['red', 'blue', 'yellow', 'green', 'purple', 'orange', 'aqua', 'gold', 'cyan', 'lime'];
+let colors:string[] = ['red', 'blue', 'yellow', 'green', 'purple', 'orange', 'aqua', 'gold', 'cyan', 'lime'];
 function set_color() {
-  let n = Math.random();
+  let n:number = Math.random();
   return colors[Math.floor(n * 10)];
 }
 
-function Search(){
-  let search_input = document.getElementById("Game_Selection") as HTMLSelectElement;
-  let search_results = document.getElementById("SearchResults") as HTMLElement;
+async function Search(){
+  // const [users, setUsers] = React.useState([]); 
+  let users:{user_name:string}[] = [{user_name:""}]; 
+  let search_input:HTMLSelectElement = document.getElementById("Game_Selection") as HTMLSelectElement;
+  let search_results:HTMLElement = document.getElementById("SearchResults") as HTMLElement;
   // search_results.childNodes.forEach(item=>item.remove());
-  let top = search_results.children.length;
-  let nodes = [];
+  let top:number = search_results.children.length;
+  let nodes:HTMLElement[] = [];
   for (let index = 0; index < top; index++) {
     nodes.push(search_results.children[index] as HTMLElement);
   }
   nodes.forEach(value=>value.remove());
-  let text_in = search_input.value;
+  let text_in:string = search_input.value;
   (document.getElementById('game_name') as HTMLDivElement).innerHTML = text_in;
-  let data = loadData();
-  for (let index = 0; index < data.length; index++) {
-    if (data[index].games.includes(text_in)) {
-      let paragraph = document.createElement('p');
-      paragraph.innerHTML = data[index].username;
+  const result = await loadData(text_in) as User;
+  if(result.data) users = result.data;
+  for (let index = 0; index < users.length; index++) {
+      let paragraph:HTMLParagraphElement = document.createElement('p');
+      paragraph.innerHTML = (users[index] as any).user_name;
       paragraph.style.marginBottom = 'auto';
       paragraph.style.marginTop = 'auto';
-      let after = document.createElement('::after');
+      let after:HTMLElement = document.createElement('::after');
       after.style.backgroundImage = 'url("src/resources/pngwing.com.png")';
       after.style.backgroundSize = 'cover';
-      let color = set_color();
+      let color:string = set_color();
       after.setAttribute('class', 'player_icon');
       after.style.backgroundColor = color;
       after.style.borderStyle = 'hidden';
@@ -168,7 +184,7 @@ function Search(){
       after.style.width = '1.5vw';
       after.style.content = '" "';
       paragraph.appendChild(after);
-      let button = document.createElement('button');
+      let button: HTMLButtonElement = document.createElement('button');
       button.style.backgroundImage = 'url("src/resources/plus-large-svgrepo-com.svg")';
       button.style.backgroundSize = 'cover';
       button.style.width = '20px';
@@ -177,7 +193,7 @@ function Search(){
       button.style.backgroundColor = 'rgb(128, 128, 128)';
       button.style.marginBottom = 'auto';
       button.style.marginTop = 'auto';
-      let div = document.createElement('div');
+      let div: HTMLDivElement = document.createElement('div');
       div.style.display = 'flex';
       div.style.flexDirection = 'row';
       div.style.justifyContent = 'space-between';
@@ -185,11 +201,11 @@ function Search(){
       div.appendChild(button);
       button.addEventListener('click', () => { throw_player(paragraph, color) });
       search_results.appendChild(div);
-    }
+    
   }
 }
 
-let players: any[] = [];
+let players: string[] = [];
 function throw_player(player: HTMLParagraphElement, color: string) {
   if (players.includes(player.innerText)) return;
   players.push(player.innerText);
@@ -214,8 +230,8 @@ function throw_player(player: HTMLParagraphElement, color: string) {
   div.appendChild(pic);
   (document.getElementById("PicsShow") as HTMLElement).appendChild(div);
 }
-function remove_player(player: HTMLParagraphElement) {
-  let i = players.indexOf(player);
+function remove_player(player: HTMLDivElement) {
+  let i = players.indexOf(player.title);
   players.splice(i, 1);
   player.remove();
 }

@@ -23,7 +23,7 @@ function Log() {
             </p>
             <input type="password" name="PassIn" id="PassIn" />
             <button type="button" id="ShowPass" onClick={() => {
-                let pass = document.getElementById("PassIn") as HTMLInputElement;
+                let pass: HTMLInputElement = document.getElementById("PassIn") as HTMLInputElement;
                 if (pass.type == "password") {
                     pass.type = "text";
                 }
@@ -32,13 +32,25 @@ function Log() {
                 }
             }}>Show Password</button>
             <button type="button" id="logAccept" onClick={async () => {
-                let completed = false;
-                let users = loadData();
-                let inLog = (document.getElementById("NameIn") as HTMLInputElement).value;
-                let inPass = (document.getElementById("PassIn") as HTMLInputElement).value;
-                let user_found = false;
+                let completed: boolean = false;
+                let users: {
+                    firstName: string;
+                    lastName: string;
+                    username: string;
+                    games: string[];
+                    password: string;
+                }[] = loadData();
+                let inLog:string = (document.getElementById("NameIn") as HTMLInputElement).value;
+                let inPass:string = (document.getElementById("PassIn") as HTMLInputElement).value;
+                let user_found:boolean = false;
                 for (let index = 0; index < users.length; index++) {
-                    const element = users[index];
+                    const element: {
+                        firstName: string;
+                        lastName: string;
+                        username: string;
+                        games: string[];
+                        password: string;
+                    } = users[index];
                     if (element.username === inLog) {
                         user_found = true;
                         if (element.password === inPass) {

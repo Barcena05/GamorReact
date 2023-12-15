@@ -48,7 +48,7 @@ function Sign() {
                 <label htmlFor="Skyrim">Skyrim</label> <br />
             </form>
             <button type="button" id="show_sign_pass" onClick={() => {
-                let pass = document.getElementById("sign_pass_in") as HTMLInputElement;
+                let pass: HTMLInputElement = document.getElementById("sign_pass_in") as HTMLInputElement;
                 if (pass.type == "password") {
                     pass.type = "text";
                 }
@@ -57,11 +57,23 @@ function Sign() {
                 }
             }}>Show Password</button>
             <button type="button" id="signAccept" onClick={async () => {
-                let in_user = (document.getElementById("sign_username_in") as HTMLInputElement).value;
-                let found = false;
-                let users = loadData();
+                let in_user:string = (document.getElementById("sign_username_in") as HTMLInputElement).value;
+                let found:boolean = false;
+                let users: {
+                    firstName: string;
+                    lastName: string;
+                    username: string;
+                    games: string[];
+                    password: string;
+                }[] = loadData();
                 for (let index = 0; index < users.length; index++) {
-                    const element = users[index];
+                    const element: {
+                        firstName: string;
+                        lastName: string;
+                        username: string;
+                        games: string[];
+                        password: string;
+                    } = users[index];
                     if (element.username === in_user) {
                         alert("User already exists");
                         found = true;
@@ -69,14 +81,19 @@ function Sign() {
                     }
                 }
                 if (!found) {
-                    let games = (document.getElementById("games") as HTMLElement).getElementsByTagName("input") as HTMLCollectionOf<HTMLInputElement>;
-                    let submitted = [];
+                    let games:HTMLCollectionOf<HTMLInputElement> = (document.getElementById("games") as HTMLElement).getElementsByTagName("input") as HTMLCollectionOf<HTMLInputElement>;
+                    let submitted:string[] = [];
                     for (let index = 0; index < games.length; index++) {
                         if (games[index].checked) {
                             submitted.push(games[index].name);
                         }
                     }
-                    let datas =
+                    let datas:{
+                        firstName:string,
+                        lastName:string,
+                        username:string,
+                        games:string[],
+                        password:string} =
                     {
                         firstName: (document.getElementById("sign_firstname_in") as HTMLInputElement).value,
                         lastName: (document.getElementById("sign_lastname_in") as HTMLInputElement).value,

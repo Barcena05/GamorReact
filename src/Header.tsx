@@ -5,9 +5,10 @@ import { useEffect } from 'react';
 import { Outlet, Link } from "react-router-dom";
 function Header() {
   useEffect(()=>{
-    let user = document.getElementById("User") as HTMLParagraphElement;
+    let user: HTMLParagraphElement = document.getElementById("User") as HTMLParagraphElement;
     addEventListener("storage", () => user.innerText = localStorage.getItem("User") as string);
   },[])
+  useEffect(()=>myFunction_set_colors(),[]);
     return (
       <div id="Header" style={{fontFamily:'sans-serif'}}>
         <h3 style={{ textAlign: "center", fontFamily: "sans-serif" }} id="TopHead">

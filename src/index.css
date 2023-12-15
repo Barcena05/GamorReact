@@ -1,4 +1,5 @@
-:root {
+/* Dark Mode as default */
+:root { 
   --InText: white;
   --backCol: rgb(26, 32, 40);
   --inCol: rgb(33, 39, 47);
@@ -297,6 +298,7 @@ body {
   border-color: var(--inCol);
   color: var(--InText);
   height: 50px;
+  overflow: auto;
 }
 
 #Game_Selection_Area {
@@ -308,17 +310,18 @@ body {
   left: 0;
   margin-top: 12.5px;
   margin-bottom: 12.5px;
+  margin-right: 5px;
   height: 50%;
-  width: 50%;
-  display: inline-block;
+  display: none;
+  max-width: 80%;
 }
 
 #Games_Selection_Area
 {
   position: absolute;
-  right: 0;
   overflow: hidden;
   display: inline-block;
+  max-width: 100%;
 }
 #Display_selector
 {
@@ -331,13 +334,14 @@ background-color: var(--backCol);
   margin-top: 12.5px;
 }
 #Game_Selection {
-  float: right;
+  max-width: 100%;
   height: 50%;
   background-color: var(--backCol);
   color: var(--InText);
   border-style: hidden;
   display: none;    
   margin-top: 12.5px;
+  overflow-x: scroll;
 }
 #Game_Selection>option
 {

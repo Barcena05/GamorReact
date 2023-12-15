@@ -23,20 +23,20 @@ window.onload = function () {
 }
 
 function SwitchToRegister() {
-    let l = document.getElementById("Log") as HTMLElement;
-    let s = document.getElementById("Sign") as HTMLElement;
+    let l: HTMLElement = document.getElementById("Log") as HTMLElement;
+    let s: HTMLElement = document.getElementById("Sign") as HTMLElement;
     l.style.display = "none"; s.style.display = "flex";
 }
 function SwitchToLog() {
-    let l = document.getElementById("Log") as HTMLElement;
-    let s = document.getElementById("Sign") as HTMLElement;
+    let l: HTMLElement = document.getElementById("Log") as HTMLElement;
+    let s: HTMLElement = document.getElementById("Sign") as HTMLElement;
     s.style.display = "none"; l.style.display = "flex";
 }
 
 
 
 function selectTheme() {
-    let r = document.querySelector(':root') as HTMLElement;
+    let r: HTMLElement = document.querySelector(':root') as HTMLElement;
     r.style.setProperty('--inCol', localStorage.getItem('--inCol'));
     r.style.setProperty('--backCol', localStorage.getItem('--backCol'));
     r.style.setProperty('--InText', localStorage.getItem('--InText'));
@@ -45,10 +45,8 @@ function selectTheme() {
 
 
 function Initial_display() {
-    let l = document.getElementById("Log") as HTMLElement;
-    let s = document.getElementById("Sign") as HTMLElement;
-    console.log(l);
-    console.log(s);
+    let l: HTMLElement = document.getElementById("Log") as HTMLElement;
+    let s: HTMLElement = document.getElementById("Sign") as HTMLElement;
     if (localStorage.getItem('Log') === "1") {
         console.log('Loging');
         s.style.display = "none"; l.style.display = "flex";
@@ -61,8 +59,13 @@ function Initial_display() {
 
 
 function loadData() {
-    let users = localStorage.getItem("users");
-    let user_data;
+    let users: string | null = localStorage.getItem("users");
+    let user_data: {
+        firstName:string,
+        lastName:string,
+        username:string,
+        games:string[],
+        password:string}[];
     if (users == null) user_data = [];
     else user_data = JSON.parse(users);
     return user_data;
