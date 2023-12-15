@@ -168,7 +168,7 @@ async function Search(){
   if(result.data) users = result.data;
   for (let index = 0; index < users.length; index++) {
       let paragraph:HTMLParagraphElement = document.createElement('p');
-      paragraph.innerHTML = (users[index] as any).user_name;
+      paragraph.innerHTML = (users[index]).user_name;
       paragraph.style.marginBottom = 'auto';
       paragraph.style.marginTop = 'auto';
       let after:HTMLElement = document.createElement('::after');
